@@ -1,26 +1,27 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { formatLine } from './formatter';
+import { registerCommaDecorations } from './commaDecorations';
+import { legend, semanticTokensProvider } from './semanticTokens';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "jaeminlang-syntax" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('jaeminlang-syntax.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from jaeminlang-syntax!');
-	});
-
-	context.subscriptions.push(disposable);
+    registerCommaDecorations(context);
+    context.subscriptions.push(
+        vscode.languages.registerDocumentSemanticTokensProvider('jaeminlang', semanticTokensProvider, legend),
+        vscode.languages.registerDocumentFormattingEditProvider('jaeminlang', {
+            provideDocumentFormattingEdits(document, _options, token) {
+                const edits: vscode.TextEdit[] = [];
+                for (let index = 0; index < document.lineCount; index++) {
+                    if (token.isCancellationRequested) {
+                        return [];
+                    }
+                    const line = document.lineAt(index);
+                    const formatted = formatLine(line.text);
+                    if (formatted !== line.text) {
+                        edits.push(vscode.TextEdit.replace(line.range, formatted));
+                    }
+                }
+                return edits;
+            },
+        }),
+    );
 }
-
-// This method is called when your extension is deactivated
-export function deactivate() {}

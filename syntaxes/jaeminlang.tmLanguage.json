@@ -1,0 +1,143 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Jaeminlang",
+  "scopeName": "source.jaeminlang",
+  "patterns": [
+    {
+      "name": "comment.line.jaeminlang",
+      "match": "^어이쿠.*$"
+    },
+    {
+      "begin": "^(엘릭서)(,)((?:\\\\.|[^,\\r\\n])*)",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.jaeminlang"
+        },
+        "2": {
+          "name": "punctuation.separator.arguments.jaeminlang"
+        },
+        "3": {
+          "name": "entity.name.function.jaeminlang"
+        }
+      },
+      "end": "$",
+      "patterns": [
+        {
+          "include": "#string"
+        },
+        {
+          "name": "constant.character.escape.jaeminlang",
+          "match": "\\\\."
+        },
+        {
+          "name": "punctuation.separator.arguments.jaeminlang",
+          "match": ","
+        },
+        {
+          "name": "constant.language.null.jaeminlang",
+          "match": "(?<=,)여친(?=,|$)"
+        },
+        {
+          "name": "constant.numeric.jaeminlang",
+          "match": "(?<=,)[+-]?(?:[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+)(?:[eE][+-]?[0-9]+)?(?=,|$)"
+        },
+        {
+          "name": "keyword.operator.jaeminlang",
+          "match": "(?<=,)[+*/^\\-]|(?<=,)[&|=<>](?=,|$)"
+        },
+        {
+          "name": "punctuation.definition.collection.jaeminlang",
+          "match": "[\\[\\]{}]"
+        },
+        {
+          "name": "punctuation.accessor.jaeminlang",
+          "match": "\\."
+        },
+        {
+          "name": "variable.other.readwrite.jaeminlang",
+          "match": "(?:\\\\.|[^,\\r\\n\".\\[\\]{}+*/^&|=<>\\-])+"
+        }
+      ]
+    },
+    {
+      "begin": "^(팝콘)(,)",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.jaeminlang"
+        },
+        "2": {
+          "name": "punctuation.separator.arguments.jaeminlang"
+        }
+      },
+      "end": "$",
+      "patterns": [
+        {
+          "include": "#string"
+        },
+        {
+          "name": "string.unquoted.path.jaeminlang",
+          "match": "[^\\r\\n]+"
+        }
+      ]
+    },
+    {
+      "name": "keyword.control.jaeminlang",
+      "match": "^(?:안산|재민|그램|러스트|엘릭서|음\\.\\.\\.|콜라|팝콘|샤갈|해선|저런|메가커피)(?=,|$)"
+    },
+    {
+      "include": "#values"
+    }
+  ],
+  "repository": {
+    "string": {
+      "name": "string.quoted.double.jaeminlang",
+      "begin": "\"",
+      "end": "\"|$",
+      "patterns": [
+        {
+          "name": "constant.character.escape.jaeminlang",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "values": {
+      "patterns": [
+        {
+          "include": "#string"
+        },
+        {
+          "name": "constant.character.escape.jaeminlang",
+          "match": "\\\\."
+        },
+        {
+          "name": "punctuation.separator.arguments.jaeminlang",
+          "match": ","
+        },
+        {
+          "name": "constant.language.null.jaeminlang",
+          "match": "(?<=,)여친(?=,|$)"
+        },
+        {
+          "name": "constant.numeric.jaeminlang",
+          "match": "(?<=,)[+-]?(?:[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+)(?:[eE][+-]?[0-9]+)?(?=,|$)"
+        },
+        {
+          "name": "keyword.operator.jaeminlang",
+          "match": "(?<=,)[+*/^\\-]|(?<=,)[&|=<>](?=,|$)"
+        },
+        {
+          "name": "punctuation.definition.collection.jaeminlang",
+          "match": "[\\[\\]{}]"
+        },
+        {
+          "name": "punctuation.accessor.jaeminlang",
+          "match": "\\."
+        },
+        {
+          "name": "variable.other.readwrite.jaeminlang",
+          "match": "(?:\\\\.|[^,\\r\\n\".\\[\\]{}+*/^&|=<>\\-])+"
+        }
+      ]
+    }
+  }
+}

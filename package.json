@@ -1,21 +1,51 @@
 {
   "name": "jaeminlang-syntax",
   "displayName": "jaeminlang-syntax",
-  "description": "jaeminlang 문법을 하이라이팅해줍니다.",
+  "description": "재민랭(.jml) 문법 하이라이팅과 포맷팅을 지원합니다.",
   "version": "0.0.1",
   "engines": {
-    "vscode": "^1.138.0"
+    "vscode": "^1.135.0"
   },
   "categories": [
-    "Other"
+    "Programming Languages",
+    "Formatters"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:jaeminlang"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
-    "commands": [
+    "languages": [
       {
-        "command": "jaeminlang-syntax.helloWorld",
-        "title": "Hello World"
+        "id": "jaeminlang",
+        "aliases": [
+          "재민랭",
+          "Jaeminlang"
+        ],
+        "extensions": [
+          ".jml"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "jaeminlang",
+        "scopeName": "source.jaeminlang",
+        "path": "./syntaxes/jaeminlang.tmLanguage.json"
+      }
+    ],
+    "semanticTokenScopes": [
+      {
+        "language": "jaeminlang",
+        "scopes": {
+          "function": [
+            "entity.name.function.jaeminlang"
+          ],
+          "parameter": [
+            "variable.parameter.jaeminlang"
+          ]
+        }
       }
     ]
   },
