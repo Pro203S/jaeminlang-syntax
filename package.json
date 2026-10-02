@@ -2,6 +2,7 @@
   "name": "jaeminlang-syntax",
   "displayName": "jaeminlang-syntax",
   "description": "재민랭(.jml) 문법 하이라이팅과 포맷팅을 지원합니다.",
+  "publisher": "Pro203S",
   "version": "1.0.0",
   "engines": {
     "vscode": "^1.135.0"
